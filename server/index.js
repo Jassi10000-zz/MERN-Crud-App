@@ -1,4 +1,5 @@
 const express = require('express');
+
 const mongoose = require('mongoose');
 
 const FoodModel = require('./models/Food')
@@ -9,17 +10,19 @@ app.use(express.json());
 
 
 app.get('/' , async (req,res) => {
-    const food = new FoodModel({foodName: "Rajma" , daySinceIAte: 60});
+    const food = new FoodModel({foodName: "Frankie" , daySinceIAte: 60});
 
     try{
         await food.save();
+        res.send("inserted data");
     }
     catch(err){
         console.log(err);
     }
 });
 
-mongoose.connect('mongodb+srv://crudapp:crudapp@crud.z1gcd.mongodb.net/food?retryWrites=true&w=majority' , {
+const mongodb_url = "mongodb+srv://newUser:crudapp@crudapp.dao48.mongodb.net/Food?retryWrites=true&w=majority";
+mongoose.connect(mongodb_url , {
     useNewUrlParser: true,
 });
 
