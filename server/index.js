@@ -2,15 +2,22 @@ const express = require('express');
 
 const mongoose = require('mongoose');
 
+const cors = require('cors');
+
 const FoodModel = require('./models/Food')
 
 const app = express();
 
 app.use(express.json());
 
+app.use(cors());
 
-app.get('/' , async (req,res) => {
-    const food = new FoodModel({foodName: "Frankie" , daySinceIAte: 60});
+app.post('/insert' , async (req,res) => {
+
+    const FoodName = req.body.FoodName;
+    const Days = req.body.Days;
+
+    const food = new FoodModel({foodName: FoodName , daySinceIAte: Days});
 
     try{
         await food.save();
